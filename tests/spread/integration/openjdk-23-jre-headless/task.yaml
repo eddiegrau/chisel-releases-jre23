@@ -11,6 +11,7 @@ environment:
   SLICE/jfr: "jfr"
   SLICE/security: "security"
   SLICE/tools: "tools"
+  SLICE/virtualthreads: "core" # Testing virtual threads using the core slice
 
 execute: |
   # Test different slice installations
@@ -56,6 +57,9 @@ execute: |
       tools)
         DNAME="CN=Sample Cert, OU=R&D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE"
         chroot . $(dirname ${java})/keytool -genkeypair -keystore foo -storepass barbar -keyalg RSA -dname "$DNAME"
+      ;;
+      virtualthreads)
+        chroot . ${java} /VirtualThreadsTest.java
       ;;
     esac
   done
